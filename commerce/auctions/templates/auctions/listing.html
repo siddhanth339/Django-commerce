@@ -13,8 +13,20 @@
         <form action = "{% url 'listings' listing.id %}" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
+            {% if message %}
+                {{ message }}
+            {% endif %}
             <input class = "btn btn-primary" type = "submit" value = "Place Bid">
         </form>
-
+        <br>
+        {% if request.user == listing.owner %}
+            <a class = "btn btn-primary" href = "{% url 'close' listing.id %}">Close</a>
+        {% endif %}
+        <br>
+        <h4>Details</h4>
+        <ul>
+            <li>Listed by: {{ listing.owner }}</li>
+            <li>Category: {{ choice }}</li>
+        </ul>
     </div>
 {% endblock %}

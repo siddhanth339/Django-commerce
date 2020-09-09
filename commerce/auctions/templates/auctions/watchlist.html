@@ -19,7 +19,10 @@
                 <p class = "date"><b>{{ listing.date }}</b></p>
             </div>
         </div>
+        <br>
+        <a class = "btn btn-primary" href = "{% url 'remove' listing.id %}">Remove</a>
     {% empty %}
         No listings available.
+    
     {% endfor %}
 {% endblock %}

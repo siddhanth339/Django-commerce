@@ -92,7 +92,7 @@ def createListing(request):
             bid = form.cleaned_data["starting_bid"]
             img = form.cleaned_data["image_url"]
             cat = form.cleaned_data["category"]
-            listing = Auction_Listings(title = ti, description = des, starting_bid = bid, image_url = img, category = cat, current_bid = bid)
+            listing = Auction_Listings(title = ti, description = des, starting_bid = bid, image_url = img, category = cat, current_bid = bid, owner = request.user)
             listing.save()
             # Redirect user to list of tasks
             return HttpResponseRedirect(reverse("index"))
@@ -112,6 +112,7 @@ class BidForm(forms.Form):
 
 def listing(request, id):
     item = Auction_Listings.objects.get(pk = id)
+    c = dict(item.CHOICES)
     if request.method == "POST":
 
         # Take in the data the user submitted and save it as form
@@ -121,23 +122,41 @@ def listing(request, id):
         if form.is_valid():
 
             bid = form.cleaned_data["bid"]
-            
-            item.current_bid = int(bid)
-            item.save()
-            # Redirect user to list of tasks
-            return HttpResponseRedirect(reverse("index"))
+            current_bid = item.current_bid
+
+            if (bid < current_bid):
+                return render(request, "auctions/Listing.html", {
+                "form": form,
+                "listing": item,
+                "choice": c[item.category],
+                "message": "Your bid is less than the current bid."
+            })
+            else:
+                item.current_bid = int(bid)
+                item.save()
+                # Redirect user to list of tasks
+                return HttpResponseRedirect(reverse("index"))
         
         else:
             # If the form is invalid, re-render the page with existing information.
             return render(request, "auctions/Listing.html", {
                 "form": form,
-                "listing": item
+                "listing": item,
+                "choice": c[item.category],
             })
 
     return render(request, "auctions/listing.html", {
         "form": BidForm(),
-        "listing": item
+        "listing": item,
+        "choice": c[item.category],
     })
+
+def search(request, cat): # cat -> category
+    items = Auction_Listings.objects.filter(category = cat)
+    return render(request, "auctions/index.html", {
+        "listings": items
+    })
+
 
 @login_required
 def show_watchList(request):
@@ -154,3 +173,20 @@ def addToWatchList(request, id):
     return render(request, "auctions/watchlist.html",{
         "items": current_user.my_items.all()
     })
+
+@login_required
+def remove(request, id):
+    item = Auction_Listings.objects.get(pk = id)
+    current_user = request.user
+    current_user.my_items.remove(item)
+    current_user.save()
+    return render(request, "auctions/watchlist.html",{
+        "items": current_user.my_items.all()
+    })
+
+@login_required
+def close(request, id):
+    item = Auction_Listings.objects.get(pk = id)
+    item.delete()
+    return render(request, "auctions/index.html")
+

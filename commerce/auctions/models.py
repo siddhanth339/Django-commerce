@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class User(AbstractUser):
+    my_items = models.ManyToManyField('Auction_Listings', blank = True, related_name="users")
+
 class Auction_Listings(models.Model):
     title = models.CharField(max_length = 20)
     description = models.TextField(max_length = 300)
@@ -18,7 +21,5 @@ class Auction_Listings(models.Model):
     category = models.CharField(max_length = 20, choices = CHOICES, default = "FA")
     date = models.DateTimeField(auto_now_add=True)
     current_bid = models.IntegerField()
+    owner = models.ForeignKey(User, on_delete = models.CASCADE, default = 1)
 
-
-class User(AbstractUser):
-    my_items = models.ManyToManyField(Auction_Listings, blank = True, related_name="users")
