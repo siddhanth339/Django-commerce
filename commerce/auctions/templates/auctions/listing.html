@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Auctions
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Listing: {{ listing.title }}</h2><br>
+        <img src = "{{ listing.image_url }}" alt = "img"><br>
+        {{ listing.description }}<br>
+        <b>Current bid: &#8377;{{ listing.current_bid }}</b><br>
+        <form action = "{% url 'listings' listing.id %}" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class = "btn btn-primary" type = "submit" value = "Place Bid">
+        </form>
+
+    </div>
+{% endblock %}

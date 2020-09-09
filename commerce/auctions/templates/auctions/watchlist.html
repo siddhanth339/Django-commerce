@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Watch List
+{% endblock %}
+
+{% block body %}
+    <h2>My watchlist</h2>
+    <br>
+    {% for listing in items %}
+        <div class = "row" style="border: 1px solid rgb(194, 183, 183); margin: 10px;">
+            <div class = "col-3">
+                <img src = "{{ listing.image_url }}" alt = "img">
+            </div>
+            <div class = "col-9">
+                <p class = "title"><b>{{ listing.title }}</b></p>
+                <p class = "desc"><b>{{ listing.description }}</b></p>
+                <p class = "price"><b>&#8377;{{ listing.starting_bid }}</b></p>
+                <p class = "date"><b>{{ listing.date }}</b></p>
+            </div>
+        </div>
+    {% empty %}
+        No listings available.
+    {% endfor %}
+{% endblock %}
