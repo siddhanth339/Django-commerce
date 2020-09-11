@@ -7,7 +7,7 @@
 {% block body %}
     <div>
         <h2>Listing: {{ listing.title }}</h2><br>
-        <img src = "{{ listing.image_url }}" alt = "img"><br>
+        <img src = "{{ listing.image_url }}" style = "width: 260px; height: 330px" alt = "img"><br>
         {{ listing.description }}<br>
         <b>Current bid: &#8377;{{ listing.current_bid }}</b><br>
         <form action = "{% url 'listings' listing.id %}" method="POST">

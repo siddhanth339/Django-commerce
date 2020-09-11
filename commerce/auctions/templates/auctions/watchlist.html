@@ -9,8 +9,8 @@
     <br>
     {% for listing in items %}
         <div class = "row" style="border: 1px solid rgb(194, 183, 183); margin: 10px;">
-            <div class = "col-3">
-                <img src = "{{ listing.image_url }}" alt = "img">
+            <div class = "col-3" style = "width: 260px;">
+                <img src = "{{ listing.image_url }}" style = "width: 260px; height: 330px;" alt = "img">
             </div>
             <div class = "col-9">
                 <p class = "title"><b>{{ listing.title }}</b></p>

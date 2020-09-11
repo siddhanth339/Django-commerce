@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Auctions</h1>
-        <div>
+        <div class="status">
             {% if user.is_authenticated %}
                 Signed in as <strong>{{ user.username }}</strong>.
             {% else %}
@@ -25,9 +25,9 @@
             </li>
             <li class="nav-item">
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">
                         Categories
-                    </button>
+                    </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'search' 'FA' %}">Fashion</a>
                         <a class="dropdown-item" href="{% url 'search' 'EL' %}">Electronics</a>

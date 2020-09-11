@@ -2,5 +2,68 @@ body {
     padding: 10px;
     background-color: floralwhite;
 }
+h1
+{
+    color: royalblue;
+    text-align: center;
+}
+a
+{
+   text-decoration: none!important;
+}
 
+.nav-link
+{
+    color: white;
+}
 
+.status
+{
+    text-align: right;
+    margin-right: 20px;
+}
+.nav
+{
+    border-radius: 16px;
+    background-color: royalblue;
+}
+.nav-link:hover
+{
+    background-color: orangered;
+    color: white;
+    cursor: pointer;
+    border-radius: 16px;
+}
+.display-item
+{
+    border: 1px solid rgb(194, 183, 183); 
+    margin: 10px;
+    border-radius: 12px;
+}
+.display-item:hover 
+{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+.title
+{
+    color: black;
+}
+.desc
+{
+    font-size: 30px;
+    color: black;
+}
+.price
+{
+    font-size: 30px;
+    color: black;
+}
+.date
+{
+    font-size: 13px;
+    color: rgb(163, 159, 159);
+}
+.add
+{
+    margin-left: 20px;
+}
